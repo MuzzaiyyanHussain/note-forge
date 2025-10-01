@@ -28,6 +28,7 @@ import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { authClient } from "@/lib/auth-client"
 
 const formSchema = z.object({
   email: z.email(),
@@ -47,6 +48,13 @@ export function LoginForm({
       password: "",
     },
   })
+
+  const signIn = async () => {
+    await authClient.signIn.social({
+      provider:"google",
+      callbackURL:"/dashboard",
+    })
+  }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
    
@@ -103,7 +111,7 @@ export function LoginForm({
                       <div className="flex items-center">
                         <FormLabel>Password</FormLabel>
                         <Link
-                          href="#"
+                          href="/forget-password"
                           className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                         >
                           Forgot your password?
@@ -125,7 +133,7 @@ export function LoginForm({
                       "Login"
                     )}
                   </Button>
-                  <Button variant="outline" className="w-full">
+                  <Button variant="outline" type="button" onClick={signIn} className="w-full">
                     Login with Google
                   </Button>
                 </div>

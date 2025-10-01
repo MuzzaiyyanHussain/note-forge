@@ -27,6 +27,7 @@ import { signUpUser } from "@/server/users"
 import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
 import Link from "next/link"
+import { authClient } from "@/lib/auth-client"
 
 
 const formSchema = z
@@ -71,6 +72,13 @@ export function SignUpForm({
       setIsLoading(false)
     }
   }
+
+  const signUp = async () => {
+      await authClient.signIn.social({
+        provider:"google",
+        callbackURL:"/dashboard",
+      })
+    }
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -154,8 +162,8 @@ export function SignUpForm({
                       "Signup"
                     )}
                   </Button>
-                  <Button variant="outline" className="w-full">
-                    Login with Google
+                  <Button variant="outline" onClick={signUp} type="button" className="w-full">
+                    Signup with Google
                   </Button>
                 </div>
               </div>
