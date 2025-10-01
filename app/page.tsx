@@ -6,12 +6,12 @@ import HeroSection from "@/components/hero-section";
 
 export default function Home() {
   return (
-    <div>
+    <main>
       <HeroHeader />
       <HeroSection />
       <Features />
       <CallToAction />
       <Footer />
-    </div>
+    </main>
   );
 }
